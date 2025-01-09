@@ -1,5 +1,7 @@
 import streamlit as st
 import requests
+import pandas as pd
+import plotly.graph_objects as go
 
 class StockAPI:
 
@@ -31,7 +33,7 @@ class StockAPI:
             "outputsize": "compact",
             "datatype": "json",
         }
-        response = requests.get(url, headers=self.headers, params=querystring)
+        response = requests.get(self.url, headers=self.headers, params=querystring)
         data = response.json()["Time Series (Daily)"]
         df = pd.DataFrame(data).T
         df = df.astype(float).round(2)
